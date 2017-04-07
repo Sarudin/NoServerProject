@@ -1,3 +1,3 @@
-angular.module('whatsOutThereApp').controller('extCtrl', function($scope, exoService) {
+angular.module('whatsOutThereApp').controller('exoCtrl', function($scope, exoService) {
 
 })

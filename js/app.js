@@ -16,4 +16,11 @@ angular.module('whatsOutThereApp', ['ui.router'])
       templateUrl: './views/exo.html',
       controller: 'exoCtrl'
     })
+    .state('allExo', {
+      url: '/allExo',
+      templateUrl: './views/allExo.html',
+      controller: 'allExoCtrl'
+    })
+
+    $urlRouterProvider.otherwise('/');
 })

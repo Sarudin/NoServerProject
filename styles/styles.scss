@@ -1,7 +1,12 @@
 h2, h4 {
   text-align: center;
+  color: white !important;
 }
 
 .myJumbotron {
-  background-color: tan !important;
+  background-image: url('https://apod.nasa.gov/apod/image/1704/ldn1622LeonardoJulio-ap1024.jpg');
+}
+
+.homeApod {
+  opacity: 0.25;
 }

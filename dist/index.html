@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html ng-app="whatsOutThereApp">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>No-Server Project</title>
-    <link rel="stylesheet" href="./dist/styles.3e81c970.css">
+    <link rel="stylesheet" href="./dist/styles.4f7bcf54.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  </head>
-  <body ng-controller="homeCtrl">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="home">Home</a></li>
+                <li><a ui-sref="apod">NASA APOD</a></li>
+                <li><a ui-sref="exo">Exoplanets</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="jumbotron myJumbotron">
-      <h2>NASA APOD</h2>
-      <h4>No-Server Project</h4>
+        <h2>What's Out There?</h2>
+        <h4>No-Server Project</h4>
     </div>
 
     <ui-view></ui-view>
@@ -18,6 +30,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js" charset="utf-8"></script>
     <script src="./dist/js/bundle.js" charset="utf-8"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" charset="utf-8"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
-  </body>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
 </html>
