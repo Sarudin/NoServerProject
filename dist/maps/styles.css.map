@@ -1,1 +1,1 @@
-{"version":3,"sources":["styles.scss"],"names":[],"mappings":"AAAA","file":"../styles.css","sourcesContent":[""]}
+{"version":3,"sources":["styles.scss"],"names":[],"mappings":"AAAA,EAAE,EAAE,EAAE,CAAC;EACL,UAAU,EAAE,MAAO,GACpB;;AAED,YAAY,CAAC;EACX,gBAAgB,EAAE,cAAe,GAClC","file":"../styles.css","sourcesContent":["h2, h4 {\n  text-align: center;\n}\n\n.myJumbotron {\n  background-color: tan !important;\n}\n"]}
