@@ -1,3 +1,4 @@
-<div>
-  {{allExo.name}}
-</div>
+<center ng-repeat="planet in allExo">
+    <button ui-sref="aboutExo({nameAndLetter: planet.pl_hostname+planet.pl_letter})">{{planet.pl_hostname}}{{planet.pl_letter}}</button>
+    <hr>
+</center>

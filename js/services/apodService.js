@@ -6,19 +6,18 @@ angular.module('whatsOutThereApp').service('apodService', function($http) {
   }
 
   this.getApodByDate = function(date) {
-    console.log(date);
     var correctYear = date.toString().substring(11, 15);
     var correctMonth = this.getCorrectMonth(date.toString().substring(4, 7));
     var correctDay = date.toString().substring(8, 10);
     var correctDate = correctYear + '-' + correctMonth + '-' + correctDay;
-    console.log(correctDate);
+
     return $http.get('https://api.nasa.gov/planetary/apod?api_key=9Z9LkSbzAuUy2OgvFr80Vrlm2kbiMq8a9RaAkYA9&date=' + correctDate).then(function(response) {
       return response;
     })
   }
 
-  this.getCorrectMonth = function(d) {
-    switch(d) {
+  this.getCorrectMonth = function(month) {
+    switch(month) {
       case 'Jan':
         return '01';
       case 'Feb':
