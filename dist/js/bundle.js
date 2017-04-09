@@ -3,8 +3,7 @@
 angular.module('whatsOutThereApp', ['ui.router']).config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('home', {
     url: '/',
-    templateUrl: './views/home.html',
-    controller: 'homeCtrl'
+    templateUrl: './views/home.html'
   }).state('apod', {
     url: '/apod',
     templateUrl: './views/apod.html'
@@ -23,7 +22,74 @@ angular.module('whatsOutThereApp', ['ui.router']).config(function ($stateProvide
 });
 'use strict';
 
-angular.module('whatsOutThereApp').controller('homeCtrl', function ($scope, homeService) {});
+angular.module('whatsOutThereApp').service('aboutExoService', function ($http) {
+  this.getExoInfo = function (nameAndLetter) {
+    return $http.get("http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&where=pl_hostname like '" + nameAndLetter.substring(0, nameAndLetter.length - 1) + "' and pl_letter like '" + nameAndLetter.substring(nameAndLetter.length - 1, nameAndLetter.length) + "'&format=json").then(function (response) {
+      return response.data;
+    });
+  };
+});
+'use strict';
+
+angular.module('whatsOutThereApp').service('allExoService', function ($http) {
+  this.getAllExo = function () {
+    return $http.get('http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=json').then(function (response) {
+      return response.data.slice(70, 100);
+    });
+  };
+});
+'use strict';
+
+angular.module('whatsOutThereApp').service('apodService', function ($http) {
+  this.getApod = function () {
+    return $http.get('https://api.nasa.gov/planetary/apod?api_key=9Z9LkSbzAuUy2OgvFr80Vrlm2kbiMq8a9RaAkYA9').then(function (response) {
+      return response;
+    });
+  };
+
+  this.getApodByDate = function (date) {
+    var correctYear = date.toString().substring(11, 15);
+    var correctMonth = this.getCorrectMonth(date.toString().substring(4, 7));
+    var correctDay = date.toString().substring(8, 10);
+    var correctDate = correctYear + '-' + correctMonth + '-' + correctDay;
+
+    return $http.get('https://api.nasa.gov/planetary/apod?api_key=9Z9LkSbzAuUy2OgvFr80Vrlm2kbiMq8a9RaAkYA9&date=' + correctDate).then(function (response) {
+      return response;
+    });
+  };
+
+  this.getCorrectMonth = function (month) {
+    switch (month) {
+      case 'Jan':
+        return '01';
+      case 'Feb':
+        return '02';
+      case 'Mar':
+        return '03';
+      case 'Apr':
+        return '04';
+      case 'May':
+        return '05';
+      case 'Jun':
+        return '06';
+      case 'Jul':
+        return '07';
+      case 'Aug':
+        return '08';
+      case 'Sep':
+        return '09';
+      case 'Oct':
+        return '10';
+      case 'Nov':
+        return '11';
+      case 'Dec':
+        return '12';
+    }
+  };
+});
+'use strict';
+
+angular.module('whatsOutThereApp').service('homeService', function ($http) {});
 'use strict';
 
 angular.module('whatsOutThereApp').directive('aboutExoFunctionalDir', function () {
@@ -92,75 +158,4 @@ angular.module('whatsOutThereApp').directive('apodFunctionalDir', function () {
     }
   };
 });
-'use strict';
-
-angular.module('whatsOutThereApp').service('aboutExoService', function ($http) {
-  this.getExoInfo = function (nameAndLetter) {
-    console.log("nameAndLetter = " + nameAndLetter);
-    return $http.get("http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&where=pl_hostname like '" + nameAndLetter.substring(0, nameAndLetter.length - 1) + "' and pl_letter like '" + nameAndLetter.substring(nameAndLetter.length - 1, nameAndLetter.length) + "'&format=json").then(function (response) {
-      return response.data;
-    });
-  };
-});
-'use strict';
-
-angular.module('whatsOutThereApp').service('allExoService', function ($http) {
-  this.getAllExo = function () {
-    return $http.get('http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=json').then(function (response) {
-      return response.data.slice(70, 100);
-    });
-  };
-});
-'use strict';
-
-angular.module('whatsOutThereApp').service('apodService', function ($http) {
-  this.getApod = function () {
-    return $http.get('https://api.nasa.gov/planetary/apod?api_key=9Z9LkSbzAuUy2OgvFr80Vrlm2kbiMq8a9RaAkYA9').then(function (response) {
-      return response;
-    });
-  };
-
-  this.getApodByDate = function (date) {
-    var correctYear = date.toString().substring(11, 15);
-    var correctMonth = this.getCorrectMonth(date.toString().substring(4, 7));
-    var correctDay = date.toString().substring(8, 10);
-    var correctDate = correctYear + '-' + correctMonth + '-' + correctDay;
-
-    return $http.get('https://api.nasa.gov/planetary/apod?api_key=9Z9LkSbzAuUy2OgvFr80Vrlm2kbiMq8a9RaAkYA9&date=' + correctDate).then(function (response) {
-      return response;
-    });
-  };
-
-  this.getCorrectMonth = function (month) {
-    switch (month) {
-      case 'Jan':
-        return '01';
-      case 'Feb':
-        return '02';
-      case 'Mar':
-        return '03';
-      case 'Apr':
-        return '04';
-      case 'May':
-        return '05';
-      case 'Jun':
-        return '06';
-      case 'Jul':
-        return '07';
-      case 'Aug':
-        return '08';
-      case 'Sep':
-        return '09';
-      case 'Oct':
-        return '10';
-      case 'Nov':
-        return '11';
-      case 'Dec':
-        return '12';
-    }
-  };
-});
-'use strict';
-
-angular.module('whatsOutThereApp').service('homeService', function ($http) {});
 //# sourceMappingURL=bundle.js.map

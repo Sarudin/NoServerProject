@@ -12,8 +12,19 @@ h2, h4 {
 }
 
 .homeApod {
-  opacity: 0.25;
+  opacity: 0.40;
+  background-image: url('https://apod.nasa.gov/apod/image/1704/ldn1622LeonardoJulio-ap1024.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
 }
+
+.introText {
+  color: white;
+  font-size: 28px;
+}
+
 
 .cursorButton {
   color: white;

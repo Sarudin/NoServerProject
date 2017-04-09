@@ -3,8 +3,7 @@ angular.module('whatsOutThereApp', ['ui.router'])
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: './views/home.html',
-      controller: 'homeCtrl'
+      templateUrl: './views/home.html'
     })
     .state('apod', {
       url: '/apod',
