@@ -1,4 +1,4 @@
-angular.module('whatsOutThereApp').directive('apodTemplateDir', function() {
+angular.module('whatsOutThereApp').directive('apodFunctionalDir', function() {
   return {
     restrict: 'E',
     templateUrl: './views/apodTmpl.html',

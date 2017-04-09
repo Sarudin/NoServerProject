@@ -12,11 +12,8 @@ h2, h4 {
   opacity: 0.25; }
 
 .cursorButton {
-  border-radius: 4px;
-  border: none;
-  color: #FFFFFF;
+  color: white;
   text-align: center;
-  font-size: 28px;
   padding: 20px;
   width: 200px;
   transition: all 0.5s;
@@ -47,9 +44,7 @@ h2, h4 {
 .rippleButton {
   position: relative;
   background-color: #4CAF50;
-  border: none;
-  font-size: 28px;
-  color: #FFFFFF;
+  color: white;
   padding: 20px;
   width: 200px;
   text-align: center;

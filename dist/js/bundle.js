@@ -7,27 +7,68 @@ angular.module('whatsOutThereApp', ['ui.router']).config(function ($stateProvide
     controller: 'homeCtrl'
   }).state('apod', {
     url: '/apod',
-    templateUrl: './views/apod.html',
-    controller: 'apodCtrl'
+    templateUrl: './views/apod.html'
   }).state('exo', {
     url: '/exo',
-    templateUrl: './views/exo.html',
-    controller: 'exoCtrl'
+    templateUrl: './views/exo.html'
   }).state('allExo', {
     url: '/allExo',
-    templateUrl: './views/allExo.html',
-    controller: 'allExoCtrl'
+    templateUrl: './views/allExo.html'
   }).state('aboutExo', {
     url: '/aboutExo/:nameAndLetter',
-    templateUrl: './views/aboutExo.html',
-    controller: 'aboutExoCtrl'
+    templateUrl: './views/aboutExo.html'
   });
 
   $urlRouterProvider.otherwise('/');
 });
 'use strict';
 
-angular.module('whatsOutThereApp').directive('apodTemplateDir', function () {
+angular.module('whatsOutThereApp').controller('homeCtrl', function ($scope, homeService) {});
+'use strict';
+
+angular.module('whatsOutThereApp').directive('aboutExoFunctionalDir', function () {
+  return {
+    restrict: 'E',
+    templateUrl: './views/aboutExoTmpl.html',
+    controller: function controller($scope, aboutExoService, $stateParams) {
+      $scope.exoInfo;
+
+      $scope.getExoInfo = function () {
+        aboutExoService.getExoInfo($stateParams.nameAndLetter).then(function (response) {
+          $scope.exoInfo = response;
+        });
+      };
+
+      $scope.getExoInfo();
+
+      $scope.showLocation = function (idx) {
+        window.open('http://server3.sky-map.org/v2?zoom=1&show_grid=1&show_constellation_lines=1&show_constellation_boundaries=1&show_const_names=0&show_galaxies=1&show_box=1&box_ra=19.883874999999996&box_de=47.60494444444444&box_width=50&box_height=50&img_source=DSS2&ra=' + idx.ra_str + '&de=' + idx.dec_str);
+      };
+    }
+  };
+});
+'use strict';
+
+angular.module('whatsOutThereApp').directive('allExoFunctionalDir', function () {
+  return {
+    restrict: 'E',
+    templateUrl: './views/allExoTmpl.html',
+    controller: function controller($scope, allExoService) {
+      $scope.allExo;
+
+      $scope.getAllExo = function () {
+        allExoService.getAllExo().then(function (response) {
+          $scope.allExo = response;
+        });
+      };
+
+      $scope.getAllExo();
+    }
+  };
+});
+'use strict';
+
+angular.module('whatsOutThereApp').directive('apodFunctionalDir', function () {
   return {
     restrict: 'E',
     templateUrl: './views/apodTmpl.html',
@@ -51,62 +92,6 @@ angular.module('whatsOutThereApp').directive('apodTemplateDir', function () {
     }
   };
 });
-'use strict';
-
-angular.module('whatsOutThereApp').controller('aboutExoCtrl', function ($scope, aboutExoService, $stateParams) {
-  $scope.exoInfo;
-
-  $scope.getExoInfo = function () {
-    aboutExoService.getExoInfo($stateParams.nameAndLetter).then(function (response) {
-      $scope.exoInfo = response;
-    });
-  };
-
-  $scope.getExoInfo();
-
-  $scope.showLocation = function (idx) {
-    window.open('http://server3.sky-map.org/v2?zoom=1&show_grid=1&show_constellation_lines=1&show_constellation_boundaries=1&show_const_names=0&show_galaxies=1&show_box=1&box_ra=19.883874999999996&box_de=47.60494444444444&box_width=50&box_height=50&img_source=DSS2&ra=' + idx.ra_str + '&de=' + idx.dec_str);
-  };
-});
-'use strict';
-
-angular.module('whatsOutThereApp').controller('allExoCtrl', function ($scope, allExoService) {
-  $scope.allExo;
-
-  $scope.getAllExo = function () {
-    allExoService.getAllExo().then(function (response) {
-      $scope.allExo = response;
-    });
-  };
-
-  $scope.getAllExo();
-});
-'use strict';
-
-angular.module('whatsOutThereApp').controller('apodCtrl', function ($scope, apodService) {
-  $scope.apod;
-  $scope.date = "";
-
-  $scope.getApod = function () {
-    apodService.getApod().then(function (response) {
-      $scope.apod = response.data;
-    });
-  };
-
-  $scope.getApodByDate = function (date) {
-    apodService.getApodByDate(date).then(function (response) {
-      $scope.apod = response.data;
-    });
-  };
-
-  $scope.getApod();
-});
-'use strict';
-
-angular.module('whatsOutThereApp').controller('exoCtrl', function ($scope, exoService) {});
-'use strict';
-
-angular.module('whatsOutThereApp').controller('homeCtrl', function ($scope, homeService) {});
 'use strict';
 
 angular.module('whatsOutThereApp').service('aboutExoService', function ($http) {
@@ -175,9 +160,6 @@ angular.module('whatsOutThereApp').service('apodService', function ($http) {
     }
   };
 });
-'use strict';
-
-angular.module('whatsOutThereApp').service('exoService', function ($http) {});
 'use strict';
 
 angular.module('whatsOutThereApp').service('homeService', function ($http) {});

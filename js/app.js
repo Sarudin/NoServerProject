@@ -8,23 +8,19 @@ angular.module('whatsOutThereApp', ['ui.router'])
     })
     .state('apod', {
       url: '/apod',
-      templateUrl: './views/apod.html',
-      controller: 'apodCtrl'
+      templateUrl: './views/apod.html'
     })
     .state('exo', {
       url: '/exo',
-      templateUrl: './views/exo.html',
-      controller: 'exoCtrl'
+      templateUrl: './views/exo.html'
     })
     .state('allExo', {
       url: '/allExo',
-      templateUrl: './views/allExo.html',
-      controller: 'allExoCtrl'
+      templateUrl: './views/allExo.html'
     })
     .state('aboutExo', {
       url: '/aboutExo/:nameAndLetter',
-      templateUrl: './views/aboutExo.html',
-      controller: 'aboutExoCtrl'
+      templateUrl: './views/aboutExo.html'
     })
 
     $urlRouterProvider.otherwise('/');
