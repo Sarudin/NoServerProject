@@ -24,7 +24,7 @@ angular.module('whatsOutThereApp', ['ui.router']).config(function ($stateProvide
 
 angular.module('whatsOutThereApp').service('aboutExoService', function ($http) {
   this.getExoInfo = function (nameAndLetter) {
-    return $http.get("http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&where=pl_hostname like '" + nameAndLetter.substring(0, nameAndLetter.length - 1) + "' and pl_letter like '" + nameAndLetter.substring(nameAndLetter.length - 1, nameAndLetter.length) + "'&format=json").then(function (response) {
+    return $http.get("https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&where=pl_hostname like '" + nameAndLetter.substring(0, nameAndLetter.length - 1) + "' and pl_letter like '" + nameAndLetter.substring(nameAndLetter.length - 1, nameAndLetter.length) + "'&format=json").then(function (response) {
       return response.data;
     });
   };
@@ -33,7 +33,7 @@ angular.module('whatsOutThereApp').service('aboutExoService', function ($http) {
 
 angular.module('whatsOutThereApp').service('allExoService', function ($http) {
   this.getAllExo = function () {
-    return $http.get('http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=json').then(function (response) {
+    return $http.get('https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=json').then(function (response) {
       return response.data.slice(70, 100);
     });
   };
@@ -89,9 +89,6 @@ angular.module('whatsOutThereApp').service('apodService', function ($http) {
 });
 'use strict';
 
-angular.module('whatsOutThereApp').service('homeService', function ($http) {});
-'use strict';
-
 angular.module('whatsOutThereApp').directive('aboutExoFunctionalDir', function () {
   return {
     restrict: 'E',
@@ -108,7 +105,7 @@ angular.module('whatsOutThereApp').directive('aboutExoFunctionalDir', function (
       $scope.getExoInfo();
 
       $scope.showLocation = function (idx) {
-        window.open('http://server3.sky-map.org/v2?zoom=1&show_grid=1&show_constellation_lines=1&show_constellation_boundaries=1&show_const_names=0&show_galaxies=1&show_box=1&box_ra=19.883874999999996&box_de=47.60494444444444&box_width=50&box_height=50&img_source=DSS2&ra=' + idx.ra_str + '&de=' + idx.dec_str);
+        window.open('https://server3.sky-map.org/v2?zoom=1&show_grid=1&show_constellation_lines=1&show_constellation_boundaries=1&show_const_names=0&show_galaxies=1&show_box=1&box_ra=19.883874999999996&box_de=47.60494444444444&box_width=50&box_height=50&img_source=DSS2&ra=' + idx.ra_str + '&de=' + idx.dec_str);
       };
     }
   };
