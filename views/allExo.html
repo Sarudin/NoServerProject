@@ -1,4 +1,4 @@
 <center ng-repeat="planet in allExo">
-    <button class="btn btn-secondary" ui-sref="aboutExo({nameAndLetter: planet.pl_hostname+planet.pl_letter})">Show info for planet {{planet.pl_hostname}}{{planet.pl_letter}}</button>
+    <button class="btn btn-warning cursorButton" ui-sref="aboutExo({nameAndLetter: planet.pl_hostname+planet.pl_letter})"><span>Planet {{planet.pl_hostname}}{{planet.pl_letter}}</span></button>
     <hr>
 </center>

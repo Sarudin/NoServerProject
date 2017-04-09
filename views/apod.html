@@ -1,5 +1,5 @@
 <center>
-  <h3>{{apod.date}}</h3>
+  <h3>Astronomy Picture of the Day for {{apod.date}}</h3>
   <img class="img-responsive apod" ng-src="{{apod.url}}">
   <p class="fa fa-copyright">{{apod.copyright}}</p>
   <h3 style="color: black;">{{apod.title}}</h3>
@@ -7,7 +7,6 @@
   <br><br>
   <form ng-submit="getApodByDate(date)">
     Enter a date to see the picture from that day: <input ng-model="date" type="date" min="1996-01-01" max="today"/></br>
-    <button class="btn btn-secondary" type="submit">Get Picture</button>
-    <br></br></br>
+    <button class="btn btn-warning rippleButton" type="submit">Get Picture</button>
   </form>
 </center>
