@@ -1,9 +1,12 @@
 <center ng-repeat = "planet in exoInfo">
   <h3>{{planet.pl_hostname}}{{planet.pl_letter}}</h3>
   <div>
-    <p>Discovery method: {{planet.pl_discmethod}}</p>
-    <p>Orbital period: {{planet.pl_orbper}}</p>
+    <p>Discovery Date: {{planet.rowupdate}}</p>
+    <p>Discovery Method: {{planet.pl_discmethod}}</p>
+    <p>Orbital Period: {{planet.pl_orbper}} days</p>
+    <p>Earth Radii: {{planet.pl_radj}}</p>
+    <br>
+    <p>Star Distance: {{planet.st_dist}} Light Years</p>
   </div>
-  <!-- <button ng-click="showLocation(planet)">{{planet.pl_hostname}}{{planet.pl_letter}}</button> -->
-  <button class="btn btn-secondary">Show Planet Info</button></br><br>
+  <button class="btn btn-secondary" ng-click="showLocation(planet)">Show Location In Sky</button>
 </center>
