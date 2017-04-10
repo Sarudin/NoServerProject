@@ -22,9 +22,83 @@ angular.module('whatsOutThereApp', ['ui.router']).config(function ($stateProvide
 });
 'use strict';
 
+angular.module('whatsOutThereApp').directive('aboutExoFunctionalDir', function () {
+  return {
+    restrict: 'E',
+    templateUrl: './views/aboutExoTmpl.html',
+    controller: function controller($scope, aboutExoService, $stateParams) {
+      $scope.exoInfo;
+      $scope.lightYears;
+
+      $scope.getExoInfo = function () {
+        aboutExoService.getExoInfo($stateParams.nameAndLetter).then(function (response) {
+          $scope.exoInfo = response[0];
+          if ($scope.exoInfo.st_dist === null) {
+            $scope.lightYears = "Unknown";
+          } else {
+            $scope.lightYears = $scope.exoInfo.st_dist + " light years";
+          }
+        });
+      };
+
+      $scope.getExoInfo();
+
+      $scope.showLocation = function (idx) {
+        window.open('http://server3.sky-map.org/v2?zoom=1&show_grid=1&show_constellation_lines=1&show_constellation_boundaries=1&show_const_names=0&show_galaxies=1&show_box=1&box_ra=19.883874999999996&box_de=47.60494444444444&box_width=50&box_height=50&img_source=DSS2&ra=' + idx.ra_str + '&de=' + idx.dec_str);
+      };
+    }
+  };
+});
+'use strict';
+
+angular.module('whatsOutThereApp').directive('allExoFunctionalDir', function () {
+  return {
+    restrict: 'E',
+    templateUrl: './views/allExoTmpl.html',
+    controller: function controller($scope, allExoService) {
+      $scope.allExo;
+
+      $scope.getAllExo = function () {
+        allExoService.getAllExo().then(function (response) {
+          $scope.allExo = response;
+        });
+      };
+
+      $scope.getAllExo();
+    }
+  };
+});
+'use strict';
+
+angular.module('whatsOutThereApp').directive('apodFunctionalDir', function () {
+  return {
+    restrict: 'E',
+    templateUrl: './views/apodTmpl.html',
+    controller: function controller($scope, apodService) {
+      $scope.apod;
+      $scope.date = "";
+
+      $scope.getApod = function () {
+        apodService.getApod().then(function (response) {
+          $scope.apod = response.data;
+        });
+      };
+
+      $scope.getApodByDate = function (date) {
+        apodService.getApodByDate(date).then(function (response) {
+          $scope.apod = response.data;
+        });
+      };
+
+      $scope.getApod();
+    }
+  };
+});
+'use strict';
+
 angular.module('whatsOutThereApp').service('aboutExoService', function ($http) {
   this.getExoInfo = function (nameAndLetter) {
-    return $http.get("https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&where=pl_hostname like '" + nameAndLetter.substring(0, nameAndLetter.length - 1) + "' and pl_letter like '" + nameAndLetter.substring(nameAndLetter.length - 1, nameAndLetter.length) + "'&format=json").then(function (response) {
+    return $http.get("http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&where=pl_hostname like '" + nameAndLetter.substring(0, nameAndLetter.length - 1) + "' and pl_letter like '" + nameAndLetter.substring(nameAndLetter.length - 1, nameAndLetter.length) + "'&format=json").then(function (response) {
       return response.data;
     });
   };
@@ -33,7 +107,7 @@ angular.module('whatsOutThereApp').service('aboutExoService', function ($http) {
 
 angular.module('whatsOutThereApp').service('allExoService', function ($http) {
   this.getAllExo = function () {
-    return $http.get('https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=json').then(function (response) {
+    return $http.get('http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=json').then(function (response) {
       return response.data.slice(70, 100);
     });
   };
@@ -84,74 +158,6 @@ angular.module('whatsOutThereApp').service('apodService', function ($http) {
         return '11';
       case 'Dec':
         return '12';
-    }
-  };
-});
-'use strict';
-
-angular.module('whatsOutThereApp').directive('aboutExoFunctionalDir', function () {
-  return {
-    restrict: 'E',
-    templateUrl: './views/aboutExoTmpl.html',
-    controller: function controller($scope, aboutExoService, $stateParams) {
-      $scope.exoInfo;
-
-      $scope.getExoInfo = function () {
-        aboutExoService.getExoInfo($stateParams.nameAndLetter).then(function (response) {
-          $scope.exoInfo = response;
-        });
-      };
-
-      $scope.getExoInfo();
-
-      $scope.showLocation = function (idx) {
-        window.open('https://server3.sky-map.org/v2?zoom=1&show_grid=1&show_constellation_lines=1&show_constellation_boundaries=1&show_const_names=0&show_galaxies=1&show_box=1&box_ra=19.883874999999996&box_de=47.60494444444444&box_width=50&box_height=50&img_source=DSS2&ra=' + idx.ra_str + '&de=' + idx.dec_str);
-      };
-    }
-  };
-});
-'use strict';
-
-angular.module('whatsOutThereApp').directive('allExoFunctionalDir', function () {
-  return {
-    restrict: 'E',
-    templateUrl: './views/allExoTmpl.html',
-    controller: function controller($scope, allExoService) {
-      $scope.allExo;
-
-      $scope.getAllExo = function () {
-        allExoService.getAllExo().then(function (response) {
-          $scope.allExo = response;
-        });
-      };
-
-      $scope.getAllExo();
-    }
-  };
-});
-'use strict';
-
-angular.module('whatsOutThereApp').directive('apodFunctionalDir', function () {
-  return {
-    restrict: 'E',
-    templateUrl: './views/apodTmpl.html',
-    controller: function controller($scope, apodService) {
-      $scope.apod;
-      $scope.date = "";
-
-      $scope.getApod = function () {
-        apodService.getApod().then(function (response) {
-          $scope.apod = response.data;
-        });
-      };
-
-      $scope.getApodByDate = function (date) {
-        apodService.getApodByDate(date).then(function (response) {
-          $scope.apod = response.data;
-        });
-      };
-
-      $scope.getApod();
     }
   };
 });

@@ -1,3 +1,5 @@
+$bgrImg: 'https://apod.nasa.gov/apod/image/1704/ldn1622LeonardoJulio-ap1024.jpg';
+
 body {
   background-color: #fff8e7 !important;
 }
@@ -8,12 +10,12 @@ h2, h4 {
 }
 
 .myJumbotron {
-  background-image: url('https://apod.nasa.gov/apod/image/1704/ldn1622LeonardoJulio-ap1024.jpg');
+  background-image: url($bgrImg)
 }
 
 .homeApod {
-  opacity: 0.40;
-  background-image: url('https://apod.nasa.gov/apod/image/1704/ldn1622LeonardoJulio-ap1024.jpg');
+  opacity: 0.85;
+  background-image: url($bgrImg);
   background-repeat: no-repeat;
   background-position: center;
   height: 100vh;
@@ -21,10 +23,34 @@ h2, h4 {
 }
 
 .introText {
-  color: white;
+  color: #ffffff;
   font-size: 28px;
 }
 
+.exoText {
+  color: #000000;
+  font-size: 24px;
+}
+
+.exoDiv {
+  width: 75%;
+}
+
+button {
+  background-color: tan;
+}
+
+li {
+  font-weight: bolder;
+}
+
+.exoButton {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 900px;
+  margin: auto;
+}
 
 .cursorButton {
   color: white;
@@ -34,6 +60,7 @@ h2, h4 {
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
+  background-color: tan;
 }
 
 .cursorButton span {
